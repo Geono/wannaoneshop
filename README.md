@@ -1,2 +1,0 @@
-# WannaOne shop
-
