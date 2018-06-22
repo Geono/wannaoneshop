@@ -8,28 +8,41 @@
     <table class="table table-striped">
         <div class="page-header">
             <h1>워너원 상품 오픈마켓</h1>
-            <!--<h2 th:text="${pageNo} 페이지">1</h2>-->
+            <ins th:text="|${#httpServletRequest.getParameter('page')} 페이지|"></ins>
         </div>
         <thead>
         <tr>
-            <th>상품</th>
-            <th>가격</th>
-            <th>상세</th>
-            <th>판매량</th>
+            <th class="text-center">상품</th>
+            <th class="text-center">가격</th>
+            <th class="text-center">상세</th>
+            <th class="text-center">판매량</th>
+            <th class="text-center">구매하기</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${items}">
-            <td th:text="${item.name}">1</td>
-            <td th:text="${item.price}">1</td>
-            <td th:text="${item.info}">1</td>
-            <td th:text="${item.soldCount}">1</td>
+            <td class="text-center" th:text="${item.name}">1</td>
+            <td class="text-center" th:text="${item.price}">1</td>
+            <td class="text-center" th:text="${item.info}">1</td>
+            <td class="text-center" th:text="${item.soldCount}">1</td>
+            <td class="text-center">
+                <a class="btn btn-primary"
+                   href="/item/1">
+                    구매하기
+                </a>
+                <a class="btn btn-info"
+                   href="/item/1">
+                    장바구니넣기
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
     <div>
-        <a class="btn btn-default" href="/item/add">상품 올리기</a>
-
+        <a class="btn btn-warning"
+           href="/item/add">
+            상품 올리기
+        </a>
     </div>
     <script src="../webjars/jquery/1.9.1/jquery.min.js"></script>
     <script src="../webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

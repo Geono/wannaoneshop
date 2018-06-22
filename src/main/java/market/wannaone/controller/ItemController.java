@@ -26,7 +26,6 @@ public class ItemController {
     public String listItems(Model model, @RequestParam int page) {
         List<Item> items = itemService.getItems(page - 1, PAGE_SIZE).getContent();
         model.addAttribute("items", items);
-        model.addAttribute("pageNo", page);
         return "item/list";
     }
 
