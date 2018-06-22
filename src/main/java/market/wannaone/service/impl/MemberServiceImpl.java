@@ -45,4 +45,10 @@ public class MemberServiceImpl implements MemberService {
     public Member getMemberByEmail(String email) {
         return memberRepository.getMemberByEmail(email);
     }
+
+    @Override
+    @Transactional
+    public Member modifyMember(Member member) {
+        return memberRepository.save(member);
+    }
 }
