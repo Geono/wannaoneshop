@@ -37,8 +37,8 @@ public class MemberController {
     public String join(@ModelAttribute Member member) {
         member.setRegdate(LocalDateTime.now());
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        System.out.println(member.getPasswd());
-        member.setPasswd(passwordEncoder.encode(member.getPasswd()));
+        System.out.println(member.getPassword());
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
 
         member = memberService.addMember(member);
         System.out.println(member.getId());
@@ -50,5 +50,10 @@ public class MemberController {
     @GetMapping(path="/welcome")
     public String welcome(){
         return "members/welcome";
+    }
+
+    @GetMapping(path="/login")
+    public String login() {
+        return "members/login";
     }
 }

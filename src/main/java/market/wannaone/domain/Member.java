@@ -21,7 +21,9 @@ public class Member implements Serializable {
     private Long id;
     private String name;
     private String email;
-    private String passwd;
+    private String password;
+    private String mobile;
+    private String address;
     @Column(name="reg_date")
     private LocalDateTime regdate;
 

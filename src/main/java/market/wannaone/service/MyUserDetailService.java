@@ -34,7 +34,7 @@ public class MyUserDetailService implements UserDetailsService {
             list.add(new SimpleGrantedAuthority("ROLE_" + memberRole.getName()));
         }
 
-        UserDetails user = new User(id, member.getPasswd(), list);
+        UserDetails user = new User(id, member.getPassword(), list);
         return user;
     }
 }

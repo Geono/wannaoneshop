@@ -5,12 +5,34 @@
         <title>joinform</title>
     </head>
     <body>
-    <h1>joinform</h1>
-    <form method="post" action="/members/join">
-        name : <input type="text" name="name"><br>
-        email : <input type="text" name="email"><br>
-        password : <input type="password" name="passwd"><br>
-        <input type="submit">
-    </form>
+        <h1>joinform</h1>
+        <form method="post" action="/members/join">
+            <table>
+                <tbody>
+                <tr>
+                    <td>E-Mail</td>
+                    <td><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td>회원이름</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td>전화번호</td>
+                    <td><input type="text" name="mobile"></td>
+                </tr>
+                <tr>
+                    <td>주소</td>
+                    <td><input type="text" name="address"></td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit">
+        </form>
+        <button onclick="javascript:history.back();">이전 화면</button>
     </body>
 </html>
