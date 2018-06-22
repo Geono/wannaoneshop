@@ -24,24 +24,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public Item addItem(
-            String name, int price, String info,
-            String descriptionImageFilename,
-            String representativeImageFilename,
-            int totalCount,
-            int soldCount) {
-
-        Item item = new Item() {{
-            setId(null);
-            setName(name);
-            setPrice(price);
-            setInfo(info);
-            setDescriptionImageFilename(descriptionImageFilename);
-            setRepresentativeImageFilename(representativeImageFilename);
-            setTotalCount(totalCount);
-            setSoldCount(soldCount);
-        }};
-
+    public Item addItem(Item item) {
         return itemRepository.save(item);
     }
 }

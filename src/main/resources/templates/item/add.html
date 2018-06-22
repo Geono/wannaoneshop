@@ -1,42 +1,53 @@
+<!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Welcome</title>
+    <title>상품 등록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{/item/add}" th:object="item" method="post">
-        <table class="table table-striped">
-            <caption>Your todos are</caption>
-            <thead>
-            <tr>
-                <th>상품</th>
-                <th>판매자</th>
-                <th>가격</th>
-                <th>상세</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <p>Simple Text Field: <input type="text" th:field="*{textField}"/></p>
-                </td>
-                <td>
-                    <p>Date Field: <input type="number" th:field="*{numberField}" /></p>
-                </td>
-                <td>
-                    <p>Text Area Field: <textarea th:field="*{textareaField}" ></textarea></p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" href="/edit-todo">Edit Todo</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
-    <div>
-        <a class="btn btn-default" href="/add-todo">Add a Todo</a>
+    <div class="page-header">
+        <h1>상품 등록</h1>
+    </div>
+    <div class="row">
+        <form action="#" th:action="@{/item/add}" th:object="${item}" method="post">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">상품이름</label>
+                    <input type="text" class="form-control" name="name" id="name"
+                           placeholder="상품이름"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="name">가격</label>
+                    <input type="number" pattern="(d{3})([.])(d{2})" class="form-control" name="price" id="price"
+                           placeholder="가격"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="info">상세설명</label>
+                    <textarea class="form-control" name="info" id="info"
+                              placeholder="상세설명"
+                              required>
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="totalCount">수량</label>
+                    <input type="number" class="form-control" name="totalCount" id="totalCount"
+                           placeholder="수량" required>
+                </div>
+                <div class="row spacer"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <pre class="output"> 허위 매물로 밝혀질 경우 화염과 분노로 대응 할 것이므로 진실하시길 바랍니다 </pre>
+                    </div>
+                </div>
+                <div class="row spacer"></div>
+                <button type="submit" class="btn btn-primary">상품등록</button>
+            </div>
+        </form>
     </div>
     <script src="../webjars/jquery/1.9.1/jquery.min.js"></script>
     <script src="../webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
