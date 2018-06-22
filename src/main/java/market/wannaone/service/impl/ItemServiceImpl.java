@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -20,6 +21,13 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getItems(int page, int size) {
         return itemRepository.findAll(new PageRequest(page, size));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Item getItem(Long id) {
+        Optional<Item> item = itemRepository.findById(id);
+        return item.get();
     }
 
     @Override

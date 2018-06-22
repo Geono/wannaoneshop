@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ItemService {
     public Page<Item> getItems(int page, int size);
+    public Item getItem(Long id);
 
     public Item addItem(
             String name, int price, String info,
