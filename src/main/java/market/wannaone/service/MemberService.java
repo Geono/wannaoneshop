@@ -9,4 +9,5 @@ public interface MemberService {
     public Member addMember(Member member);
     public List<Member> getMembers();
     public Member getMemberByEmail(String email);
+    public Member modifyMember(Member member);
 }

@@ -23,9 +23,32 @@ public class MemberController {
 
     @GetMapping(path = "/profile")
     public String profile(Principal principal, ModelMap modelMap) {
-        System.out.println(principal.getName());
-        // modelMap.addAttribute("member", member);
+        Member member = memberService.getMemberByEmail(principal.getName());
+        modelMap.addAttribute("member", member);
         return "members/profile";
+    }
+
+    @GetMapping(path = "/modifyform")
+    public String modifyform(Principal principal, ModelMap modelMap) {
+        Member member = memberService.getMemberByEmail(principal.getName());
+        modelMap.addAttribute("member", member);
+        return "members/modifyform";
+    }
+
+    @PostMapping(path = "/modify")
+    public String modifyform(Principal principal, @ModelAttribute Member modifiedMember) {
+        Member member = memberService.getMemberByEmail(principal.getName());
+        if(!modifiedMember.getPassword().isEmpty()) {
+            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            member.setPassword(passwordEncoder.encode(modifiedMember.getPassword()));
+        }
+        if(!modifiedMember.getAddress().isEmpty())
+            member.setAddress(modifiedMember.getAddress());
+        if(!modifiedMember.getMobile().isEmpty())
+            member.setMobile(modifiedMember.getMobile());
+
+        memberService.modifyMember(member);
+        return "redirect:/members/profile";
     }
 
     @GetMapping(path = "/joinform")
