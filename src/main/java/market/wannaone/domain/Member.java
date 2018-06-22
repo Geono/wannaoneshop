@@ -21,8 +21,10 @@ public class Member implements Serializable {
     private Long id;
     private String name;
     private String email;
-    private String passwd;
-    @Column(name = "reg_date")
+    private String password;
+    private String mobile;
+    private String address;
+    @Column(name="reg_date")
     private LocalDateTime regdate;
 
     // Member가 영속성을 가질때 memberRoles도 영속성을 가지도록 한다.
