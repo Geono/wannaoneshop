@@ -17,23 +17,26 @@ import java.util.List;
 @Setter
 public class Member implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String passwd;
-    @Column(name="reg_date")
+    @Column(name = "reg_date")
     private LocalDateTime regdate;
 
     // Member가 영속성을 가질때 memberRoles도 영속성을 가지도록 한다.
     @JsonManagedReference
-    @OneToMany(mappedBy="member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberRole> memberRoles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Item> items = new ArrayList<>();
+
     // helper method
-    public void addMemberRole(MemberRole memberRole){
+    public void addMemberRole(MemberRole memberRole) {
         memberRoles.add(memberRole);
-        if(memberRole.getMember() != this){
+        if (memberRole.getMember() != this) {
             memberRole.setMember(this);
         }
     }

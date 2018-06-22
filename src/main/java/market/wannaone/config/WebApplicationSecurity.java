@@ -21,20 +21,6 @@ public class WebApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // super.configure(http);
-        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/members/joinform").permitAll()
-                .antMatchers(HttpMethod.POST, "/members/join").permitAll()
-                .antMatchers("/members/welcome").permitAll()
-                .antMatchers("/members/**").hasRole("USER")
-                .antMatchers("/api/**").hasRole("USER")
-                .and()
-                .csrf().ignoringAntMatchers("/**")
-                .and()
-                .formLogin();
+        super.configure(http);
     }
 }
