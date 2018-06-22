@@ -14,4 +14,7 @@ insert into member_role(id, name, member_id)
 values( null, 'USER', 2);
 
 insert into item(id, name, member_id, price, info, description_image_filename, representative_image_filename, total_count, sold_count)
-values(null, 'name', 1, 2000, 'some information', 'imagefilename', 'representativeimage', 0, 0)
+values(null, 'name', 1, 2000, 'some information', 'imagefilename', 'representativeimage', 0, 0);
+
+insert into item(id, name, member_id, price, info, description_image_filename, representative_image_filename, total_count, sold_count)
+values(null, 'name2', 2, 3000, 'some information', 'imagefilename', 'representativeimage', 0, 0);

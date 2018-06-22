@@ -1,37 +1,38 @@
-<html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Welcome</title>
-    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <table class="table table-striped">
-        <caption>Your todos are</caption>
+        <div class="page-header">
+            <h1>워너원 상품 오픈마켓</h1>
+            <!--<h2 th:text="${pageNo} 페이지">1</h2>-->
+        </div>
         <thead>
         <tr>
             <th>상품</th>
-            <th>판매자</th>
             <th>가격</th>
             <th>상세</th>
+            <th>판매량</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Todo 1</td>
-            <td>10/12/2017</td>
-            <td>No</td>
-            <td>
-                <a class="btn btn-warning" href="/edit-todo">Edit Todo</a>
-            </td>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}">1</td>
+            <td th:text="${item.price}">1</td>
+            <td th:text="${item.info}">1</td>
+            <td th:text="${item.soldCount}">1</td>
         </tr>
         </tbody>
     </table>
     <div>
-        <a class="btn btn-default" href="/add-todo">Add a Todo</a>
+        <a class="btn btn-default" href="/item/add">상품 올리기</a>
 
     </div>
-    <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../webjars/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </div>
 </body>
 </html>
