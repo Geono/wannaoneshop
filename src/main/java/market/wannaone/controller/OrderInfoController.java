@@ -10,6 +10,7 @@ import market.wannaone.service.MemberService;
 import market.wannaone.service.OrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -37,17 +38,18 @@ public class OrderInfoController {
         orderInfo.setMember(member);
         orderInfo.setCart(cart);
         orderInfo.setItem(itemService.getItem(itemId));
-        orderInfo.setCount(1);
+        orderInfo.setCount(2); // TODO
         orderInfo.setStatus("입금대기");
         return orderInfo;
     }
 
     @GetMapping("/{id}") // POST필요
-    public String order(Principal principal, @PathVariable(name="id") Long itemId) {
+    public String order(Principal principal, @PathVariable(name="id") Long itemId, ModelMap modelMap) {
         Member member = memberService.getMemberByEmail(principal.getName());
         Cart cart = cartService.getNewCartId();
         OrderInfo orderInfo = makeOrderInfo(member, cart, itemId);
         orderInfoService.addOrderInfo(orderInfo);
+        modelMap.addAttribute("orders", orderInfoService.getOrderInfoByMemberId(member.getId()));
         return "order/list"; // 주문결과 페이지로 리다이렉트
     }
 

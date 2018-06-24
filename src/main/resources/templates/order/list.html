@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>list</title>
+    <title>워너원 상품 주문 목록</title>
+    <link href="../webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<div class="container">
+    <table class="table table-striped">
+        <div class="page-header">
+            <h1>워너원 상품 주문 목록</h1>
+            <ins th:text="|${#httpServletRequest.getParameter('page')} 페이지|"></ins>
+        </div>
+        <thead>
+        <tr>
+            <th class="text-center">카트번호</th>
+            <th class="text-center">상품</th>
+            <th class="text-center">주문수량</th>
+            <th class="text-center">가격</th>
+            <th class="text-center">목록에서<br/>삭제하기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td class="text-center" th:text="${order.cart.id}">1</td>
+            <td class="text-center" th:text="${order.item.name}">1</td>
+            <td class="text-center" th:text="${order.count}">1</td>
+            <td class="text-center" th:text="${order.item.price * order.count}">1</td>
+            <td class="text-center">
+                <a class="btn btn-primary" >
+                    삭제
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script src="../webjars/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

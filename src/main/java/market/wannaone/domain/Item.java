@@ -16,7 +16,7 @@ public class Item {
     private Long id;
 
     @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name="member_id")
+    @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
     private String name;

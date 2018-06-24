@@ -15,15 +15,15 @@ public class OrderInfo {
     private Long id;
 
     @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name="member_id")
+    @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
-    @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name="cart_id")
+    @ManyToOne(targetEntity = Cart.class)
+    @JoinColumn(name="cart_id", nullable=false)
     private Cart cart;
 
-    @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name="item_id")
+    @ManyToOne(targetEntity = Item.class)
+    @JoinColumn(name="item_id", nullable=false)
     private Item item;
 
     private Integer count;

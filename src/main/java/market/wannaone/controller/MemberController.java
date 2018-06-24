@@ -67,7 +67,7 @@ public class MemberController {
         System.out.println(member.getId());
         System.out.println(member.getName());
 
-        return "redirect:/members/welcome";
+        return "redirect:/members/login";
     }
 
     @GetMapping(path="/welcome")

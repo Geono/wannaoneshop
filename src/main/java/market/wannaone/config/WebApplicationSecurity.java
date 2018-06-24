@@ -32,6 +32,7 @@ public class WebApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/members/welcome").permitAll()
                 .antMatchers("/members/login").permitAll()
                 .antMatchers("/members/**").hasRole("USER")
+                .antMatchers("/item/list").permitAll()
                 .antMatchers("/item/**").hasRole("USER")
                 .antMatchers("/api/**").hasRole("USER")
                 .antMatchers("/h2-console/**").permitAll()
