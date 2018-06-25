@@ -46,6 +46,24 @@
             상품 올리기
         </a>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage > 10} ? '' : disabled">
+                <a class="page-link" th:href="@{/item/list(page=${currentPage-1})}">
+                    Previous
+                </a>
+            </li>
+            <li class="page-item" th:each="page: ${pages}" th:classappend="${page == currentPage} ? active : ''">
+                <a class="page-link" th:text="${page}"></a>
+            </li>
+            <!--<li class="page-item" th:classappend="nextDisabled ? disabled : ''">-->
+            <li class="page-item">
+                <a class="page-link" th:href="@{/item/list(page=${currentPage+1})}">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
     <script src="../webjars/jquery/1.9.1/jquery.min.js"></script>
     <script src="../webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </div>

@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/item")
 public class ItemController {
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 10;
     @Autowired
     ItemService itemService;
     @Autowired
@@ -27,11 +28,31 @@ public class ItemController {
 
     @GetMapping(path = "/list")
     public String listItems(HttpServletRequest request, Model model, @RequestParam(required = false) Integer page) {
-        if(page == null) {
+        if(page == null)
             return "forward:/item/list?page=1";
-        }
-        List<Item> items = itemService.getItems(page - 1, PAGE_SIZE).getContent();
-        model.addAttribute("items", items);
+//        List<Item> items = itemService.getItems(page - 1, PAGE_SIZE).getContent();
+//        long count = itemService.getCount();
+//        int numOfPages = (int) Math.ceil( (count - 1) / PAGE_SIZE ) + 1;
+//        int startPageNo = numOfPages - ((page / 10) * 10);
+
+        page = 1;
+        long count = 60;
+        int numOfPages = (int) Math.ceil( (count - 1) / PAGE_SIZE ) + 1;
+        int startPageNo = numOfPages - ((page / 10) * 10);
+
+        System.out.println("startPageNo: " + startPageNo);
+        System.out.println("numOfPages: " + numOfPages);
+        System.out.println("currentPage: " + page);
+        System.out.println("threshold: " + ((count - 1) / 10) * 10);
+        long threshold = ((count - 1) / 10) * 10;
+        List<Integer> pageNos = new ArrayList();
+        for(int i = startPageNo; i <= numOfPages; i++)
+            pageNos.add(i);
+//        model.addAttribute("items", items);
+        model.addAttribute("count", count);
+        model.addAttribute("pages", pageNos);
+        model.addAttribute("currentPage", (int) page);
+        model.addAttribute("nextDisabled", page >= threshold);
         return "item/list";
     }
 

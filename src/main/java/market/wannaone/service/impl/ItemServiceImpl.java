@@ -25,6 +25,13 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(readOnly = true)
+    public long getCount() {
+        return itemRepository.count();
+    }
+
+
+        @Override
+    @Transactional(readOnly = true)
     public Item getItem(Long id) {
         Optional<Item> item = itemRepository.findById(id);
         return item.get();
