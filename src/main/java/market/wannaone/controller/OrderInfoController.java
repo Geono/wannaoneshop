@@ -8,12 +8,16 @@ import market.wannaone.service.CartService;
 import market.wannaone.service.ItemService;
 import market.wannaone.service.MemberService;
 import market.wannaone.service.OrderInfoService;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -28,9 +32,33 @@ public class OrderInfoController {
     CartService cartService;
 
     @GetMapping(path = "/addCart/{id}")
-    public String addCart() {
+    public String addCart(Principal principal, HttpSession session, @ModelAttribute Item item, ModelMap modelMap) {
         // session에 아이템 저장
+        List<OrderInfo> orderList = (List<OrderInfo>) session.getAttribute("orderList");
+        boolean alreadyIn = false;
+        if(orderList == null)
+            orderList = new ArrayList<>();
+        for( OrderInfo o : orderList) {
+            if(o.getItem().getId() == item.getId()) {
+                System.out.println("동일 Item 이미 있습니다. 수량을 늘려주세요.");
+                alreadyIn = true;
+                break;
+            }
+        }
+        if(!alreadyIn) {
+            OrderInfo o = makeOrderInfo(memberService.getMemberByEmail(principal.getName()), null, item.getId());
+            orderList.add(o);
+        }
+        session.setAttribute("orderList", orderList);
+        modelMap.addAttribute("orders", orderList);
         return "order/cart"; // 카트 보여주기
+    }
+
+    @GetMapping("/list")
+    public String list(Principal principal, ModelMap modelMap) {
+        Member member = memberService.getMemberByEmail(principal.getName());
+        modelMap.addAttribute("orders", orderInfoService.getOrdersByMemberId(member.getId()));
+        return "order/list"; // 주문결과 페이지로 리다이렉트
     }
 
     private OrderInfo makeOrderInfo(Member member, Cart cart, Long itemId) {
@@ -44,24 +72,24 @@ public class OrderInfoController {
     }
 
     @PostMapping // POST필요
-    public String order(Principal principal, @ModelAttribute Item item, ModelMap modelMap) { // just need Id
+    public String order(Principal principal, @ModelAttribute Item item) { // just need Id
         Member member = memberService.getMemberByEmail(principal.getName());
         Cart cart = cartService.getNewCartId();
         OrderInfo orderInfo = makeOrderInfo(member, cart, item.getId());
         orderInfoService.addOrderInfo(orderInfo);
-
-        modelMap.addAttribute("orders", orderInfoService.getOrdersByMemberId(member.getId()));
-        return "order/list"; // 주문결과 페이지로 리다이렉트
+        return "redirect:/order/list"; // 주문목록 페이지로 리다이렉트
     }
 
-    @PostMapping("/addCart") // POST필요
-    public String addCart(Principal principal, @ModelAttribute Item item) {
+    @PostMapping("/cart") // POST필요
+    public String addCart(Principal principal, HttpSession session) {
         // session 에 있는 것들 loop로 생성
         Member member = memberService.getMemberByEmail(principal.getName());
         Cart cart = cartService.getNewCartId();
-        //for
-//        OrderInfo orderInfo = makeOrderInfo(member, cart, itemId);
-//        orderInfoService.addOrderInfo(orderInfo);
-        return "order/list"; // 주문결과 페이지로 리다이렉트
+        List<OrderInfo> orderList = (List<OrderInfo>) session.getAttribute("orderList");
+        for(OrderInfo o : orderList) {
+            OrderInfo orderInfo = makeOrderInfo(member, cart, o.getItem().getId()); // refactoring 필요
+            orderInfoService.addOrderInfo(orderInfo);
+        }
+        return "redirect:/order/list"; // 주문목록 페이지로 리다이렉트
     }
 }
