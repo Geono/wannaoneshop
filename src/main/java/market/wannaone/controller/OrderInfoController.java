@@ -29,7 +29,7 @@ public class OrderInfoController {
     @GetMapping(path = "/addCart/{id}")
     public String addCart() {
         // session에 아이템 저장
-        return "order/cart"; // 카트 보여주기
+        return "cart"; // 카트 보여주기
     }
 
     private OrderInfo makeOrderInfo(Member member, Cart cart, Long itemId) {
@@ -48,7 +48,7 @@ public class OrderInfoController {
         Cart cart = cartService.getNewCartId();
         OrderInfo orderInfo = makeOrderInfo(member, cart, itemId);
         orderInfoService.addOrderInfo(orderInfo);
-        return "order/list"; // 주문결과 페이지로 리다이렉트
+        return "list"; // 주문결과 페이지로 리다이렉트
     }
 
     @GetMapping("/cart") // POST필요
@@ -59,6 +59,6 @@ public class OrderInfoController {
         //for
 //        OrderInfo orderInfo = makeOrderInfo(member, cart, itemId);
 //        orderInfoService.addOrderInfo(orderInfo);
-        return "order/list"; // 주문결과 페이지로 리다이렉트
+        return "list"; // 주문결과 페이지로 리다이렉트
     }
 }
