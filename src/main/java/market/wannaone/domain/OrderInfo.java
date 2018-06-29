@@ -18,11 +18,11 @@ public class OrderInfo {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @ManyToOne(targetEntity = Member.class)
+    @ManyToOne(targetEntity = Cart.class)
     @JoinColumn(name="cart_id")
     private Cart cart;
 
-    @ManyToOne(targetEntity = Member.class)
+    @ManyToOne(targetEntity = Item.class)
     @JoinColumn(name="item_id")
     private Item item;
 

@@ -28,12 +28,12 @@
             <td class="text-center" th:text="${item.totalCount}">1</td>
             <td class="text-center" th:text="${item.soldCount}">1</td>
             <td class="text-center">
-                <a class="btn btn-primary"
-                   href="/order/${item.id}">
-                    구매하기
-                </a>
+                <form id="orderform" method="post" action="/order">
+                    <input type="hidden" name="id" th:value="${item.id}">
+                    <input type="submit" class="btn btn-primary" value="구매하기">
+                </form>
                 <a class="btn btn-info"
-                   href="/item/1">
+                   href="/cart/add">
                     장바구니넣기
                 </a>
             </td>
