@@ -1,8 +1,10 @@
 package market.wannaone.controller;
 
 import market.wannaone.domain.Item;
+import market.wannaone.domain.OrderInfo;
 import market.wannaone.service.ItemService;
 import market.wannaone.service.MemberService;
+import market.wannaone.service.OrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +28,11 @@ public class ItemController {
     ItemService itemService;
     @Autowired
     MemberService memberService;
+    @Autowired
+    OrderInfoService orderInfoService;
 
     @GetMapping(path = "/list")
-    public String listItems(HttpServletRequest request, Model model, @RequestParam(required = false) Integer page) {
+    public String listItems(Principal principal, HttpServletRequest request, Model model, @RequestParam(required = false) Integer page) {
         if(page == null)
             return "forward:/item/list?page=1";
         List<Item> items = itemService.getItems(page - 1, PAGE_SIZE).getContent();
@@ -38,10 +43,14 @@ public class ItemController {
         for(int i = 1; i <= numOfPages; i++)
             pageNos.add(i);
 
+//        List<OrderInfo> soldItems = orderInfoService.findOrderInfoByCondition(
+//                memberService.getMemberByEmail(principal.getName()).getId(), "입금대기");
+
         model.addAttribute("items", items);
         model.addAttribute("count", count);
         model.addAttribute("pages", pageNos);
         model.addAttribute("currentPage", (int) page);
+//        model.addAttribute("soldItems", soldItems);
         return "item/list";
     }
 

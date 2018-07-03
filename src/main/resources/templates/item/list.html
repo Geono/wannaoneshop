@@ -9,6 +9,7 @@
         <div class="page-header">
             <h1>워너원 상품 오픈마켓</h1>
             <ins><a href="/logout">로그아웃</a></ins>
+            <div><a href="/members/modifyform">회원 정보 수정</a></div>
         </div>
         <thead>
         <tr>
@@ -33,7 +34,7 @@
                     <input type="submit" class="btn btn-primary" value="구매하기">
                 </form>
                 <a class="btn btn-info"
-                   href="/cart/add">
+                   th:href="@{/order/addCart/{id}(id=${item.id})}">
                     장바구니넣기
                 </a>
             </td>
@@ -46,7 +47,7 @@
             상품 올리기
         </a>
         <a class="btn btn-warning"
-           href="/item/add">
+           href="/order/cart">
             장바구니 가기
         </a>
     </div>

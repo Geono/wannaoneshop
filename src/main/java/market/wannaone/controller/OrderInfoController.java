@@ -51,7 +51,14 @@ public class OrderInfoController {
         }
         session.setAttribute("orderList", orderList);
         modelMap.addAttribute("orders", orderList);
-        return "order/cart"; // 카트 보여주기
+        return "redirect:/order/cart"; // 카트 보여주기
+    }
+
+    @GetMapping(path = "cart")
+    public String cart(HttpSession session, ModelMap modelMap) {
+        List<OrderInfo> orderList = (List<OrderInfo>) session.getAttribute("orderList");
+        modelMap.addAttribute("orders", orderList);
+        return "order/cart";
     }
 
     @GetMapping("/list")
@@ -86,9 +93,14 @@ public class OrderInfoController {
         Member member = memberService.getMemberByEmail(principal.getName());
         Cart cart = cartService.getNewCartId();
         List<OrderInfo> orderList = (List<OrderInfo>) session.getAttribute("orderList");
-        for(OrderInfo o : orderList) {
-            OrderInfo orderInfo = makeOrderInfo(member, cart, o.getItem().getId()); // refactoring 필요
-            orderInfoService.addOrderInfo(orderInfo);
+
+        if(orderList != null && orderList.size() != 0) {
+            for (OrderInfo o : orderList) {
+                OrderInfo orderInfo = makeOrderInfo(member, cart, o.getItem().getId()); // refactoring 필요
+                orderInfoService.addOrderInfo(orderInfo);
+            }
+            orderList.clear();
+            session.setAttribute("orderList", orderList);
         }
         return "redirect:/order/list"; // 주문목록 페이지로 리다이렉트
     }

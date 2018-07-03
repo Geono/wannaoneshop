@@ -6,27 +6,27 @@
 </head>
 <body>
 <h1>회원 정보 확인</h1>
-    <table>
-        <tbody>
-        <tr>
-            <td>E-Mail</td>
-            <td th:text="${member.email}">email 값</td>
-        </tr>
-        <tr>
-            <td>회원이름</td>
-            <td th:text="${member.name}">값</td>
-        </tr>
-        <tr>
-            <td>전화번호</td>
-            <td th:text="${member.mobile}">값</td>
-        </tr>
-        <tr>
-            <td>주소</td>
-            <td th:text="${member.address}">값</td>
-        </tr>
-        </tbody>
-    </table>
-    <input type="submit">
-    <a href="/members/modifyform">회원 정보 수정</a>
+<table>
+    <tbody>
+    <tr>
+        <td>E-Mail</td>
+        <td th:text="${member.email}">email 값</td>
+    </tr>
+    <tr>
+        <td>회원이름</td>
+        <td th:text="${member.name}">값</td>
+    </tr>
+    <tr>
+        <td>전화번호</td>
+        <td th:text="${member.mobile}">값</td>
+    </tr>
+    <tr>
+        <td>주소</td>
+        <td th:text="${member.address}">값</td>
+    </tr>
+    </tbody>
+</table>
+<div><a href="/members/modifyform">회원 정보 수정</a></div>
+<div><a href="/item/list">목록으로 돌아가기</a></div>
 </body>
 </html>

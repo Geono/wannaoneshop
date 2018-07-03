@@ -25,4 +25,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     public OrderInfo addOrderInfo(OrderInfo orderInfo) {
         return orderInfoRepository.save(orderInfo);
     }
+
+    @Override
+    @Transactional
+    public List<OrderInfo> findOrderInfoByCondition(Long memberId, String status) {
+        return orderInfoRepository.findAllByItemMemberId(memberId, status);
+    }
 }
