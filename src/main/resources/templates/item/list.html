@@ -8,7 +8,8 @@
     <table class="table table-striped">
         <div class="page-header">
             <h1>워너원 상품 오픈마켓</h1>
-            <ins><a href="/logout">로그아웃</a></ins>
+            <ins th:if="${!loggedIn}"><a href="/members/login">로그인</a></ins>
+            <ins th:if="${loggedIn}"><a href="/logout">로그아웃</a></ins>
             <div><a href="/members/modifyform">회원 정보 수정</a></div>
         </div>
         <thead>

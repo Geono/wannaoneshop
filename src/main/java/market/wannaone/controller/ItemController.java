@@ -50,6 +50,7 @@ public class ItemController {
         model.addAttribute("count", count);
         model.addAttribute("pages", pageNos);
         model.addAttribute("currentPage", (int) page);
+        model.addAttribute("loggedIn", principal != null);
 //        model.addAttribute("soldItems", soldItems);
         return "item/list";
     }
